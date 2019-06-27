@@ -1,17 +1,19 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <PlayvoxUserList msg="Welcome to Playvox Users"/>
+    <img class="playvox-logo" alt="Playvox logo" src="./assets/playvox_logo.png">
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import PlayvoxUserList from './components/PlayvoxUserList.vue'
+import PlayvoxUserNotes from './components/PlayvoxUserNotes.vue'
 
 export default {
   name: 'app',
   components: {
-    PlayvoxUserList
+    PlayvoxUserList,
+    PlayvoxUserNotes
   }
 }
 </script>
@@ -24,5 +26,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.playvox-logo {
+  width: 33%;
 }
 </style>

@@ -21,7 +21,7 @@ The local development environment consists of 3 docker containers.
 - The third container includes a node http server, and it hosts the `vuejs` frontend application.
 
 #### Running the application
-The recommended way to start all of the applications together is executing the `./up.sh` script in the root project folder. 
+The recommended way to start all of the applications together is executing the `./start.sh` script in the root project folder. 
 This will use Foreman to execute the three docker containers. 
 
 - Access the front-end site with the following URLs: `http://localhost:8080`
