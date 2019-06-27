@@ -14,9 +14,9 @@ class UserModel(object):
     def __init__(self):
         self.collection = client.playvox_users_collection
 
-    def get_all_users(self):
-        '''Returns all the users in the collection.'''
-        return [u for u in self.collection.users.find()]
+    def get_all_users(self, query={}):
+        '''Returns all the users in the collection, filtered by the optional query param.'''
+        return [u for u in self.collection.users.find(query)]
     
     def get_user(self, user_id):
         '''Returns a single user from the collection.'''

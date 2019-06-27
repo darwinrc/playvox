@@ -7,7 +7,7 @@ def get_payload_data():
         'first_name': payload['first_name'],
         'last_name': payload['last_name'],
         'age': payload['age'],
-        'gender': payload['gender'],
+        'sex': payload['sex'],
         'email': payload['email'],
         'registration_date': payload['registration_date']
     }

@@ -1,14 +1,18 @@
-from flask_restful import Resource, abort, marshal_with, fields
+import json
+from flask import request
+from flask_restful import Resource, abort, marshal_with, fields, reqparse
 
 from models import UserModel
 from .utils import get_payload_data
+
+import logging
 
 user_fields = {
     '_id': fields.String,
     'first_name': fields.String,
     'last_name': fields.String,
     'age': fields.Integer,
-    'gender': fields.String,
+    'sex': fields.String,
     'email': fields.String,
     'registration_date': fields.String
 }
@@ -20,8 +24,23 @@ class User(Resource):
 
     @marshal_with(user_fields)
     def get(self):
-        """Returns the list of users."""
-        return self.user_model.get_all_users()
+        """Returns the list of users.
+        
+        Supports query string with filters for each user field"""
+        args = request.args
+        if not args:
+            return self.user_model.get_all_users()
+            
+        logging.warn('ARGS')
+        logging.warn(args['query'])
+        
+        # if args['query']:
+        #     logging.warn(args['query'])
+        #     #return self.user_model.get_all_users({})
+                
+        # return self.user_model.get_all_users(json.loads(args['query']))
+        return self.user_model.get_all_users(json.loads(args['query']))
+
     
     @marshal_with(user_fields)
     def post(self):
