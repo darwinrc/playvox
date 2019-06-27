@@ -26,7 +26,12 @@ class User(Resource):
     @marshal_with(user_fields)
     def post(self):
         """Creates a new user."""
-        return self.user_model.insert_user(get_payload_data()), 201
+        data = get_payload_data()
+        user = self.user_model.get_user_by_name(data['first_name'], data['last_name'])
+        if user:
+            abort(400, message='User with that name exists')
+
+        return self.user_model.insert_user(data), 201
 
 
 class SingleUser(Resource):
@@ -49,8 +54,13 @@ class SingleUser(Resource):
         user = self.user_model.get_user(user_id)
         if not user:
             abort(404, message='User does not exists')
+        
+        data = get_payload_data()
+        user = self.user_model.get_user_by_name(data['first_name'], data['last_name'])
+        if user and str(user['_id']) != user_id:
+            abort(400, message='User with that name exists')
 
-        return self.user_model.update_user(user_id, get_payload_data())
+        return self.user_model.update_user(user_id, data)
     
     def delete(self, user_id):
         """Removes the user identified by user_id."""

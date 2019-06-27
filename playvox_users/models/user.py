@@ -21,6 +21,10 @@ class UserModel(object):
     def get_user(self, user_id):
         '''Returns a single user from the collection.'''
         return self.collection.users.find_one({'_id': ObjectId(user_id)})
+    
+    def get_user_by_name(self, first_name, last_name):
+        '''Returns a single user from the collection given their first and last names.'''
+        return self.collection.users.find_one({'first_name': first_name, 'last_name': last_name})
 
     def insert_user(self, new_user):
         '''Inserts a user in the collection.'''
