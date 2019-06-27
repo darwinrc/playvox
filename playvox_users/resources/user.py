@@ -5,8 +5,6 @@ from flask_restful import Resource, abort, marshal_with, fields, reqparse
 from models import UserModel
 from .utils import get_payload_data
 
-import logging
-
 user_fields = {
     '_id': fields.String,
     'first_name': fields.String,
@@ -30,17 +28,11 @@ class User(Resource):
         args = request.args
         if not args:
             return self.user_model.get_all_users()
-            
-        logging.warn('ARGS')
-        logging.warn(args['query'])
-        
-        # if args['query']:
-        #     logging.warn(args['query'])
-        #     #return self.user_model.get_all_users({})
-                
-        # return self.user_model.get_all_users(json.loads(args['query']))
-        return self.user_model.get_all_users(json.loads(args['query']))
 
+        response = self.user_model.get_all_users(json.loads(args['query']))
+        response.headers.add('Access-Control-Allow-Origin', '*')
+
+        return response
     
     @marshal_with(user_fields)
     def post(self):

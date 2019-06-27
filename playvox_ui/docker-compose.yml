@@ -1,0 +1,5 @@
+web:
+  build: .
+  command: npm run serve
+  ports:
+    - "8080:8080"
