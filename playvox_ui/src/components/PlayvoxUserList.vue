@@ -1,19 +1,26 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li>LISTA DE USUARIOS </li>
+     <v-data-table
+      :headers="headers"
+      :items="users"
+      class="elevation-1"
+      hide-actions
+    >
+    <template v-slot:items="props">
+      <td class="text-md-left">{{ props.item.first_name }} {{ props.item.last_name }}</td>
+      <td class="text-md-left">{{ props.item.email }}</td>
+      <td class="text-md-left">{{ props.item.age }}</td>
+      <td class="text-md-left">{{ props.item.sex }}</td>
+    </template>
+  </v-data-table>
+    <!-- <ul>
+      <li> </li>
       <li v-for="(user, idx) in users" :key="idx">
-        {{user.first_name}} 
-        <!-- <a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a> -->
+        <a href="#">{{user.first_name}} {{user.last_name}} {{user.sex}} {{user.email}} {{user.age}}</a> 
+        <a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a> 
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
@@ -27,11 +34,38 @@ export default {
   },
   data() {
     return {
+      headers: [
+          {
+            text: 'User',
+            align: 'left',
+            sortable: false,
+            value: 'name'
+          },
+          { 
+            text: 'Email', 
+            align: 'left',
+            sortable: false,
+            value: 'email' 
+          },
+          { 
+            text: 'Age', 
+            align: 'left',
+            sortable: false,
+            value: 'age' 
+          },
+          { 
+            text: 'Sex',
+            value: 'sex',
+            align: 'left',
+            sortable: false,
+          }
+        ],
         users: []
     };
   },
   methods: {
       listUsers() {
+        console.log('calling endpoint');
         axios.get('http://localhost:5000/v1/users'
         // , {
         //         // params: {
@@ -44,17 +78,18 @@ export default {
         //     }
           )
             .then(response => {
-                this.users  = response.data;
+                this.users = response.data;
                 console.log(this.users);
                 
             })
-            .catch(() => {
+            .catch((e) => {
+              console.log('error: ', e);
                 this.users = [];
             });
       }
     },
     beforeMount() {
-      this.listUsers()
+      this.listUsers();
     }
 }
 </script>
@@ -64,15 +99,7 @@ export default {
 h3 {
   margin: 40px 0 0;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+td {
+  cursor: pointer;
 }
 </style>
