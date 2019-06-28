@@ -1,6 +1,11 @@
 from flask import request
 
 def get_payload_data():
+    """Formats the user data for marshalling the response.
+    
+    Returns:
+        The marshalled user
+    """
     payload = request.get_json()
     
     return {

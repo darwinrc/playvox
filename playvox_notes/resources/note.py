@@ -12,18 +12,32 @@ note_fields = {
 }
 
 class Note(Resource):
-    '''TODO.'''
+    """Represents Note resource in the API."""
     def __init__(self):
         self.note_model = NoteModel()
 
     @marshal_with(note_fields)
     def get(self, user_id):
-        """Returns the list of notes for a user."""
+        """Gets the list of notes for a user.
+        
+        Args:
+            user_id: A string representing the hash id for a user.
+
+        Returns:
+            The list of notes for the user
+        """
         return self.note_model.get_user_notes(user_id) 
     
     @marshal_with(note_fields)
     def post(self, user_id):
-        """Creates a new note for a user."""
+        """Creates a new note for a user.
+        
+        Args:
+            user_id: A string representing the hash id for a user.
+
+        Returns:
+            The newly created note for the user
+        """
         note = {
             'user_id': user_id
         }

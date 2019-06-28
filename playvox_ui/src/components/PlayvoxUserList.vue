@@ -5,33 +5,32 @@
       :headers="headers"
       :items="users"
       class="elevation-1"
-      hide-actions
-    >
+      hide-actions>
     <template slot="headers">
-        <tr>
-          <th
-            v-for="header in headers"
-            :key="header.text">
-            {{ header.text }}
-          </th>
-        </tr>
-        <tr class="grey lighten-3">
-          <th
-            v-for="header in headers"
-            :key="header.text">
-            <div v-if="filters.hasOwnProperty(header.value)">
-              <v-text-field
-                label="Filter"
-                v-model=filters[header.value]
-                hide-details
-              ></v-text-field>
-            </div>
-            <div v-if="!filters.hasOwnProperty(header.value)">
-              <v-btn flat color="primary" @click="applyFilters()">Apply filters</v-btn>
-            </div>
-          </th>
-        </tr>
-      </template>
+      <tr>
+        <th
+          v-for="header in headers"
+          :key="header.text">
+          {{ header.text }}
+        </th>
+      </tr>
+      <tr class="grey lighten-3">
+        <th
+          v-for="header in headers"
+          :key="header.text">
+          <div v-if="filters.hasOwnProperty(header.value)">
+            <v-text-field
+              label="Filter"
+              v-model=filters[header.value]
+              hide-details
+            ></v-text-field>
+          </div>
+          <div v-if="!filters.hasOwnProperty(header.value)">
+            <v-btn flat color="primary" @click="applyFilters()">Apply filters</v-btn>
+          </div>
+        </th>
+      </tr>
+    </template>
     
     <template v-slot:items="props">
       <router-link tag="tr" 
