@@ -36,3 +36,7 @@ The users microservice can be started executing the `make notes` command, which 
 
 #### Running Frontend Application Separately
 The vuejs frontend application can be started executing the `make ui` command, which in turn executes `cd ./playvox_ui && docker-compose build && docker-compose up`.
+
+
+## Endpoint definitions
+### Users resource
