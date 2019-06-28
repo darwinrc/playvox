@@ -1,4 +1,4 @@
-# Playvox Users Hub
+# Playvox User Notes
 
 
 ## Requirements:
